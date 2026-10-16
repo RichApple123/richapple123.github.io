@@ -99,6 +99,7 @@ html{scrollbar-gutter:stable}
 .project-gallery figure{min-height:0;align-self:start}
 .project-gallery img{height:auto;object-fit:contain}
 .orbit-touch-zone{display:none}
+.orbit{transition:none}
 
 /* Text follows its distance from the wheel center on every scroll frame. */
 .timeline-wrap{min-width:0;display:block;padding:0;border:0;align-self:start}
@@ -144,6 +145,9 @@ html{scrollbar-gutter:stable}
  .project-gallery{display:flex;flex-direction:column;gap:14px}
  .project-gallery figure,.project-gallery figure.wide{display:block;width:100%;height:auto;min-height:0;flex:none}
  .project-gallery img{display:block;width:100%;max-width:100%;height:auto;min-height:0}
+ .overview-project header{align-items:center;gap:8px}
+ .overview-project h3{font-size:clamp(13px,4vw,18px);font-weight:400;white-space:nowrap;flex:0 0 auto}
+ .overview-project header>span{font:400 clamp(10px,2.8vw,12px)/1.5 var(--sans);white-space:nowrap;text-align:right}
  .timeline-wrap{margin-top:32px;padding:24px 0 32px;border-top:1px solid var(--line)}
  .timeline-wheel{--wheel-height:392px;--wheel-row:56px;--date-width:70px;--axis-width:46px;margin-top:24px}
  .timeline-item,.timeline-item.active,.timeline-item:hover,.timeline-item.active:hover{--title-size:10px;--title-growth:4px;--date-growth:1px}

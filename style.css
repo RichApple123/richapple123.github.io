@@ -72,12 +72,16 @@
 .about-copy .about-stats div{border-top:1px solid var(--line);padding-top:16px}
 .about-copy .about-stats dt{font:500 clamp(26px,3vw,46px) var(--mono)}
 .about-copy .about-stats dd{margin:9px 0 0;font:500 14px/1.5 var(--sans);color:#fff}
-.timeline{height:430px;padding:188px 0;scroll-snap-type:y mandatory;overscroll-behavior:contain;mask-image:linear-gradient(to bottom,transparent 0,#000 8%,#000 92%,transparent 100%)}
-.timeline-item{min-height:54px;scroll-snap-align:center;opacity:.62;transform:scale(.96);color:#929993}
+.timeline{height:430px;padding:188px 0;scroll-snap-type:y mandatory;overscroll-behavior:contain;mask-image:linear-gradient(to bottom,transparent 0,#000 2%,#000 98%,transparent 100%)}
+.timeline-item{min-height:52px;scroll-snap-align:center;opacity:.74;transform:scale(.96);color:#929993}
 .timeline-item.active{opacity:1;transform:scale(1.06);font-size:12px;color:#fff}
 .timeline-item.active span{font-size:15px;font-weight:500}
 .timeline-item:hover:not(.active){opacity:.68}
-@media(min-width:901px){.scene{transform:translateY(45px)}}
+@media(min-width:901px){.scene{transform:translateY(-78px)}}
+@media(min-width:901px){
+ .timeline-wrap{margin-top:70px;padding-top:0;display:flex;flex-direction:column;align-self:stretch}
+ .timeline-wrap .timeline{height:auto;min-height:430px;flex:1 1 auto}
+}
 @media(max-width:900px){
  .wall-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 12px}.wall-item{grid-column:auto!important}.wall-item img{max-height:42vw}
  .overview-strip{height:110vw}

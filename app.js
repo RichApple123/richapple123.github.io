@@ -16,14 +16,27 @@ const wallImages=range('wall',16).map((src,i)=>({src,title:projects[wallProjectM
 
 const orbit=document.querySelector('#orbit'),scene=document.querySelector('#scene'),zoom=document.querySelector('#zoomRange');
 const mobileLayout=matchMedia('(max-width:900px)'),stage=document.querySelector('#orbitStage'),heroCopy=document.querySelector('.hero-copy'),touchZone=document.querySelector('#orbitTouchZone');
-let rotX=-18,rotY=0,scale=mobileLayout.matches?.5:.65,radius=0,dragDistance=0,suppressClickUntil=0,flat=false;
+let rotX=-18,rotY=0,rotZ=0,scale=mobileLayout.matches?.5:.65,radius=0,dragDistance=0,suppressClickUntil=0,flat=false;
 const orbitPointers=new Map();
 const reducedOrbitMotion=matchMedia('(prefers-reduced-motion:reduce)');
-let orbitAutoFrame=0,orbitAutoTimer=0,orbitAutoLast=0,orbitAutoResumeAt=0,orbitInView=true,orbitZoomHeld=false,orbitAutoHitAt=0;
+let orbitAutoFrame=0,orbitAutoTimer=0,orbitAutoLast=0,orbitAutoElapsed=0,orbitAutoResumeAt=0,orbitInView=true,orbitZoomHeld=false,orbitAutoHitAt=0;
 function stopOrbitAuto(){cancelAnimationFrame(orbitAutoFrame);clearTimeout(orbitAutoTimer);orbitAutoFrame=0;orbitAutoLast=0}
 function startOrbitAuto(){stopOrbitAuto();if(flat||!orbitInView||document.hidden||reducedOrbitMotion.matches||orbitPointers.size||orbitZoomHeld||document.querySelector('.modal.open'))return;const delay=orbitAutoResumeAt-performance.now();if(delay>0){orbitAutoTimer=setTimeout(startOrbitAuto,delay);return}orbitAutoFrame=requestAnimationFrame(rotateOrbitAuto)}
 function pauseOrbitAuto(){orbitAutoResumeAt=performance.now()+10000;startOrbitAuto()}
-function rotateOrbitAuto(now){orbitAutoFrame=0;if(orbitAutoLast){rotY=(rotY+Math.min(now-orbitAutoLast,50)*.004)%360;orbit.style.transform=`rotateX(${rotX}deg) rotateY(${rotY}deg) scale(${scale})`;if(mobileLayout.matches&&now-orbitAutoHitAt>100){updateOrbitHitArea();orbitAutoHitAt=now}}orbitAutoLast=now;orbitAutoFrame=requestAnimationFrame(rotateOrbitAuto)}
+function applyOrbitTransform(){orbit.style.transform=`rotateZ(${rotZ}deg) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(${scale})`}
+function rotateOrbitAuto(now){
+ orbitAutoFrame=0;
+ if(orbitAutoLast){
+  const delta=Math.min(now-orbitAutoLast,50);
+  rotY=(rotY+delta*.004)%360;
+  // A 12-second rocking cycle makes the screen-plane tilt visible without flipping the ring.
+  orbitAutoElapsed=(orbitAutoElapsed+delta)%12000;
+  rotZ=9*Math.sin(orbitAutoElapsed/12000*Math.PI*2);
+  applyOrbitTransform();
+  if(mobileLayout.matches&&now-orbitAutoHitAt>100){updateOrbitHitArea();orbitAutoHitAt=now}
+ }
+ orbitAutoLast=now;orbitAutoFrame=requestAnimationFrame(rotateOrbitAuto)
+}
 new IntersectionObserver(entries=>{orbitInView=entries[0].isIntersecting;startOrbitAuto()}).observe(stage);
 document.addEventListener('visibilitychange',startOrbitAuto);
 reducedOrbitMotion.addEventListener('change',startOrbitAuto);
@@ -32,7 +45,7 @@ function syncHeroCopy(){const visible=!mobileLayout.matches||!stage.classList.co
 function buildOrbit(){radius=mobileLayout.matches?Math.min(300,innerWidth*.7):Math.min(510,innerWidth*.39);orbit.innerHTML='';orbitImages.forEach((item,i)=>{const b=document.createElement('button');b.type='button';b.className='orbit-card';b.tabIndex=mobileLayout.matches&&!flat?-1:0;b.innerHTML=`<img draggable="false" src="${A+item.src}" alt="${item.title}">`;b.style.transform=`rotateY(${i*360/orbitImages.length}deg) translateZ(${radius}px) rotateX(${i%3===0?-2:0}deg)`;b.onclick=e=>{if((mobileLayout.matches&&!flat)||performance.now()<suppressClickUntil||dragDistance>7){e.preventDefault();return}openViewerByItem(item)};orbit.appendChild(b)});renderOrbit();syncHeroCopy()}
 let orbitHitFrame=0;
 function updateOrbitHitArea(){if(!mobileLayout.matches||flat)return;const rects=[...orbit.children].map(card=>card.getBoundingClientRect()),box=scene.getBoundingClientRect();const left=Math.min(...rects.map(r=>r.left)),right=Math.max(...rects.map(r=>r.right)),top=Math.min(...rects.map(r=>r.top)),bottom=Math.max(...rects.map(r=>r.bottom));touchZone.style.width=(right-left+12)+'px';touchZone.style.height=(bottom-top+12)+'px';touchZone.style.left=((left+right)/2-box.left)+'px';touchZone.style.top=((top+bottom)/2-box.top)+'px'}
-function renderOrbit(){if(!flat)orbit.style.transform=`rotateX(${rotX}deg) rotateY(${rotY}deg) scale(${scale})`;const [min,max]=zoomBounds();zoom.value=(scale-min)/(max-min)*100;cancelAnimationFrame(orbitHitFrame);orbitHitFrame=requestAnimationFrame(updateOrbitHitArea)}
+function renderOrbit(){if(!flat)applyOrbitTransform();const [min,max]=zoomBounds();zoom.value=(scale-min)/(max-min)*100;cancelAnimationFrame(orbitHitFrame);orbitHitFrame=requestAnimationFrame(updateOrbitHitArea)}
 function markOrbitMotion(){stage.classList.add('is-rotating');syncHeroCopy()}
 scene.addEventListener('dragstart',e=>e.preventDefault());
 scene.addEventListener('pointerdown',e=>{if(flat||(e.pointerType==='mouse'&&e.button!==0)||(mobileLayout.matches&&e.target!==touchZone))return;if(!orbitPointers.size)dragDistance=0;orbitPointers.set(e.pointerId,{x:e.clientX,y:e.clientY,startX:e.clientX,startY:e.clientY});pauseOrbitAuto();if(e.pointerType==='mouse')e.preventDefault();else scene.setPointerCapture(e.pointerId);scene.classList.add('dragging')});

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b0e0d" />
+  <title>蓝清欢｜Visual Archive</title>
+  <meta name="description" content="蓝清欢，视觉导演与新媒体艺术设计师。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Noto+Sans+SC:wght@300;400;500;600&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css?v=7" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top">LAN / VISUALS</a>
+    <nav>
+      <a href="#projects">Projects</a>
+      <button data-open-overview>Overview</button>
+      <a href="#about">About</a>
+    </nav>
+    <span class="edition">PORTFOLIO / 2026</span>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-label="Selected Works interactive index">
+      <div class="section-band"><h1>Selected Works.</h1><span>07 PROJECTS / VISUAL ARCHIVE</span></div>
+      <div class="orbit-stage" id="orbitStage">
+        <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+        <div class="hero-copy">
+          <span class="eyebrow">SELECTED WORK / 2026</span>
+          <h2>Qinghuan.</h2>
+          <p>VISUAL DIRECTION<br>NEW MEDIA ART</p>
+          <p class="motto">美的瞬间转瞬即逝，<br>而我要一生美丽无限。</p>
+          <a href="#projects" class="underlink">VIEW PROJECTS ↗</a>
+        </div>
+        <div class="orbit-meta">LAN / VISUAL ARCHIVE<br><small id="orbitMode">ORBIT / 360°</small></div>
+        <div class="scene" id="scene"><div class="orbit" id="orbit"></div></div>
+        <div class="orbit-controls">
+          <button id="unfoldBtn">UNFOLD</button>
+          <small>DRAG TO ROTATE 360° &nbsp;/&nbsp; PINCH TO ZOOM</small>
+        </div>
+        <label class="zoom-control"><span>−</span><b>ZOOM</b><input id="zoomRange" type="range" min="65" max="145" value="100"><span>＋</span></label>
+        <span class="fig-label">FIG. 01 / IMAGE FIELD</span>
+      </div>
+      <div class="enter-line"><span>视觉导演与新媒体艺术设计师，以视觉构建现场与空间叙事。</span><a href="#archive">ENTER THE ARCHIVE ↓</a></div>
+    </section>
+
+    <section class="selected-wall" id="archive">
+      <div class="wall-label">SELECTED IMAGE ARCHIVE / 2026</div>
+      <div class="wall-grid" id="wallGrid"></div>
+      <div class="wall-count">19 SELECTED IMAGES / 作品展墙</div>
+    </section>
+
+    <section class="projects" id="projects">
+      <div class="projects-head">
+        <div><span class="eyebrow">01 / PORTFOLIO</span><h2>Projects</h2></div>
+        <p>07 SERIES / VISUAL ARCHIVE<br>VISUAL DIRECTION / 2018—2026</p>
+      </div>
+      <div class="project-grid" id="projectGrid"></div>
+    </section>
+
+    <section class="about" id="about">
+      <div class="about-intro">
+        <span class="eyebrow">02 / ABOUT</span><h2>Visual Narrative.</h2>
+        <div class="about-copy">
+          <p>视觉导演、新媒体艺术设计师。为 15+ 国家级大型晚会进行视觉创作。从舞台、晚会到建筑投影与沉浸式装置，以影像、色彩与空间关系创造独一无二的观看体验，用视觉讲述中国故事。</p>
+          <p><b>晚会代表作</b>：第十届丝绸之路国际电影节；第31届世界大学生夏季运动会；第29届中国金鸡百花电影节；</p>
+          <p><b>舞台剧代表作</b>：《汉颂》（获国家文旅部最佳演出奖，累计演出600余场、服务观众70W+）；</p>
+          <p><b>新媒体艺术代表作</b>：北京2022年冬残奥会开幕式；中国科幻大会开幕式；阿那亚艺术节3D Mapping《潮 Tide》；</p>
+          <p><b>影像代表作</b>：微电影《妄诞之城》（入围2017年戛纳电影节短片单元）。</p>
+          <dl class="about-stats">
+            <div><dt>15+</dt><dd>国家级晚会</dd></div>
+            <div><dt>8</dt><dd>沉浸式建筑投影</dd></div>
+            <div><dt>3</dt><dd>千万级文旅舞台剧</dd></div>
+          </dl>
+        </div>
+      </div>
+      <div class="timeline-wrap">
+        <header><span>SELECTED EXPERIENCE / 2018—2026</span><span>SCROLL TO EXPLORE</span></header>
+        <div class="timeline" id="timeline"></div>
+      </div>
+      <footer><span>© 2026 LAN QINGHUAN · VISUAL ARCHIVE</span><a href="#top">BACK TO TOP ↑</a><button data-open-overview>VIEW ALL WORKS ↗</button></footer>
+    </section>
+  </main>
+
+  <div class="viewer modal" id="viewer" aria-hidden="true">
+    <button class="close" data-close>关闭 ×</button>
+    <div class="viewer-meta"><small id="viewerKicker"></small><h3 id="viewerTitle"></h3></div>
+    <div class="viewer-canvas"><img id="viewerImage" alt="作品大图"></div>
+    <div class="viewer-tools"><button id="viewerPrev">←</button><span id="viewerCount"></span><button id="viewerNext">→</button><button id="viewerMinus">−</button><span id="viewerScale">100%</span><button id="viewerPlus">＋</button><button id="viewerFit">适合屏幕</button><button id="viewerProject">VIEW PROJECT ↗</button></div>
+  </div>
+
+  <div class="project-modal modal" id="projectModal" aria-hidden="true">
+    <div class="shade" data-close></div>
+    <article class="project-sheet" id="projectSheet">
+      <button class="close square" data-close>×</button>
+      <header><h2 id="pmTitle"></h2><p id="pmMeta"></p></header>
+      <div class="project-nav"><button id="pmPrev">← 上一组</button><span id="pmCount"></span><em id="pmRole"></em><button id="pmNext">下一组 →</button></div>
+      <div class="project-story"><p id="pmIntro"></p><blockquote id="pmQuote"></blockquote></div>
+      <div class="project-gallery" id="projectGallery"></div>
+    </article>
+  </div>
+
+  <div class="overview modal" id="overview" aria-hidden="true">
+    <header><button data-close>← 返回作品集</button><b>LAN / VISUAL ARCHIVE</b><button id="overviewTop">回到顶部 ↑</button></header>
+    <div class="overview-body" id="overviewBody">
+      <span>LAN / 2026 / VISUAL PORTFOLIO</span><h2>All works.</h2><p>07 个项目 / VISUAL ARCHIVE<br>连续浏览，点击图片进入项目空间。</p>
+      <div id="overviewProjects"></div>
+    </div>
+  </div>
+  <script src="./app.js?v=7"></script>
+</body>
+</html>

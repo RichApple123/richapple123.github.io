@@ -100,7 +100,7 @@ html{scrollbar-gutter:stable}
 .project-gallery img{height:auto;object-fit:contain}
 .orbit-touch-zone{display:none}
 
-/* The wheel has a fixed selection marker; only the list scrolls. */
+/* Rows snap to the center and highlight only after scrolling settles. */
 .timeline-wrap{min-width:0;display:block;padding:0;border:0;align-self:start}
 .timeline-wrap>header{height:16px;align-items:center;font-size:8px;gap:16px}
 .timeline-wheel{--wheel-height:430px;--wheel-row:61.4286px;--date-width:76px;--axis-width:64px;position:relative;width:100%;height:var(--wheel-height);margin-top:56px;isolation:isolate}
@@ -113,21 +113,18 @@ html{scrollbar-gutter:stable}
 .timeline-item.active,.timeline-item.active:hover{color:#fff;opacity:1}
 .timeline-item.active time{font-size:12px}
 .timeline-item.active span{font-size:16px;font-weight:500}
-.timeline-focus{position:absolute;inset:0;pointer-events:none;z-index:2}
-.timeline-focus>i{position:absolute;top:50%;left:calc(8px + var(--date-width));width:var(--axis-width);height:1px;background:#d3d8d0}
-.timeline-focus>i:after{content:"";position:absolute;left:50%;top:50%;width:11px;height:11px;border:1px solid #bbc3b9;border-radius:50%;background:var(--bg);transform:translate(-50%,-50%)}
 @media(min-width:901px){.timeline-wrap{margin-top:70px}.timeline-wrap .timeline{height:100%;min-height:0;flex:none}}
 @media(min-width:1200px){.timeline-wheel{--date-width:88px;--axis-width:78px}}
 
 @media(max-width:900px){
  .hero .section-band{display:none}
  .orbit-stage{height:calc(100svh - 64px);min-height:540px;max-height:880px;touch-action:pan-y}
- .hero-copy{top:30px;left:24px;right:24px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s,visibility .25s}
+ .hero-copy{top:30px;left:24px;right:24px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .28s ease,visibility 0s .28s}
  .hero-copy h2{font-size:48px;margin:18px 0}
  .hero-copy p{font-size:8px;line-height:1.8}
  .hero-copy .motto{margin-top:20px!important;font-size:14px!important}
  .hero-copy .underlink{margin-top:12px;font-size:8px}
- .copy-visible:not(.is-rotating) .hero-copy{opacity:1;visibility:visible;pointer-events:auto}
+ .copy-visible:not(.is-rotating) .hero-copy{opacity:1;visibility:visible;pointer-events:auto;transition-delay:0s}
  .orbit-meta{display:none}
  .scene{inset:8% 0 0;transform:none;pointer-events:none;touch-action:pan-y}
  .orbit{grid-area:1/1;transition:none}
